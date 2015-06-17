@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd">
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/root-context.xml /WEB-INF/spring/spring-security.xml</param-value>
+    </context-param>
+    
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- Dispatcher servlet -->
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <multipart-config>
+	        <location>/resources/file</location>
+	        <max-file-size>20848820</max-file-size>
+	        <max-request-size>418018841</max-request-size>
+	        <file-size-threshold>1048576</file-size-threshold>
+	    </multipart-config>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/appServlet/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+ 
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Spring Security -->
+	<filter>
+      	<filter-name>springSecurityFilterChain</filter-name>
+         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<filter-mapping>
+            <filter-name>springSecurityFilterChain</filter-name>
+            <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+        <filter-name>encoding-filter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+	
+	<filter-mapping>
+        <filter-name>encoding-filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    
+    <!-- Sitemesh -->
+    <filter>
+	  <filter-name>sitemesh</filter-name>
+	  <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	  <filter-name>sitemesh</filter-name>
+	  <url-pattern>/*</url-pattern>	  
+	</filter-mapping>
+    
+   <!--  
+   <filter>
+	  <filter-name>errorSitemesh</filter-name>
+	  <filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+	 
+	<filter-mapping>
+	  <filter-name>errorSitemesh</filter-name>
+	  <url-pattern>/*</url-pattern>
+	  <dispatcher>ERROR</dispatcher>
+	</filter-mapping>	-->
+	
+	
+	<!-- error 404 handler -->  
+    <error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/404.jsp</location>
+	</error-page>
+
+	<!-- 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404</location>
+	</error-page> -->
+	
+	<!-- 
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/views/exception/exception.jsp</location>
+	</error-page> -->
+	
+	<welcome-file-list>
+		<welcome-file></welcome-file>
+	</welcome-file-list>
+        
+</web-app>

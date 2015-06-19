@@ -12,7 +12,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<intercept-url pattern="/loginfailed" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN, ROLE_DEV, ROLE_EXT')" />
-		<form-login login-page="/login" default-target-url="/"
+		<form-login login-page="/login" default-target-url="/" always-use-default-target="true"
 			authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/login" />
 	</http>

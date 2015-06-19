@@ -13,6 +13,7 @@
 		<c:import url="/WEB-INF/views/tags/status.jsp" />
 		
 		<% int counter = 1; %>
+		<div class="table-responsive">
 		<table class="table">
 			<thead>
 				<tr>
@@ -50,7 +51,7 @@
 				</c:forEach>
 			</tbody>	
 		</table>
+		</div>
 	</fieldset>
 </div>
-
 

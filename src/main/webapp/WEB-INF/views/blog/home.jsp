@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 
-	<div class="col-md-2"">
+	<div class="col-md-2">
       	<c:import url="/WEB-INF/views/blog/menu.jsp"/>  
     </div>
 

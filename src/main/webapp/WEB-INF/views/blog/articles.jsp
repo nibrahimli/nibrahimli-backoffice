@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<div class="col-md-2"">
+<div class="col-md-2">
 	<c:import url="/WEB-INF/views/blog/menu.jsp"/>  
 </div>
 

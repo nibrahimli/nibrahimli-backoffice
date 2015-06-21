@@ -15,8 +15,22 @@
 				<c:import url="/WEB-INF/views/tags/status.jsp" />
 			
 				<c:url var="url" value="/blog/author" />
-				<form:form action="${url}" class="form-horizontal" commandName="authorInfo" method="POST">
+				<form:form action="${url}" class="form-horizontal" commandName="authorInfo" method="POST" enctype="multipart/form-data">
 				   <form:hidden path="id"/>
+				   <div class="form-group">
+				    <label class="col-sm-2 control-label" for="file">Avatar</label>
+				    <div class="col-sm-4">				    
+				    <c:choose>
+				    	<c:when test="${not empty authorInfo.avatar}">				    		
+					    	<img src="<c:url value="/resources/avatars/${authorInfo.avatar.path}"/>" class="img-responsive img-rounded media-object" width="30px">
+				    	</c:when>
+				    	<c:otherwise>
+				    		<img src="<c:url value="/resources/avatars/default-avatar.png"/>" class="img-responsive img-rounded media-object" width="40px">
+				    	</c:otherwise>
+				    </c:choose>								    
+				      <input type="file" class="form-control" id="file" name="file"/>				      
+				    </div>
+				  </div>				   
 				   <div class="form-group">
 				    <form:label class="col-sm-2 control-label" path="pseudo">Pseudo</form:label>
 				    <div class="col-sm-4">

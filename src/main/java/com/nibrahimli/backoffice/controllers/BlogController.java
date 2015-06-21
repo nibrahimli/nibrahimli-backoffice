@@ -27,20 +27,27 @@ import com.nibrahimli.backoffice.blog.data.ArticleInfo;
 import com.nibrahimli.backoffice.blog.data.AuthorInfo;
 import com.nibrahimli.database.blog.dao.ArticleDao;
 import com.nibrahimli.database.blog.dao.AuthorDao;
+import com.nibrahimli.database.blog.dao.ImageDao;
 import com.nibrahimli.database.blog.entity.Article;
 import com.nibrahimli.database.blog.entity.Author;
+import com.nibrahimli.database.blog.entity.Image;
 
 
 @Controller
 public class BlogController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(BlogController.class);
+
+	private static final String AVATAR_PATH = "src/main/webapp/resources/avatars/";
 	
 	@Autowired
 	private AuthorDao authorDao;
 	
 	@Autowired
 	private ArticleDao articleDao;
+	
+	@Autowired
+	private ImageDao imageDao;
 	
 	
 	
@@ -163,12 +170,22 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/blog/author", method=RequestMethod.POST)
-	public String createOrUpdateAuthor(@ModelAttribute(value = "authorInfo") AuthorInfo authorInfo, RedirectAttributes redirectAttrs) throws Exception {
+	public String createOrUpdateAuthor(@ModelAttribute(value = "authorInfo") AuthorInfo authorInfo, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttrs) throws Exception {
 
 		try
 		{
 			Author author = new Author() ;
 			if(StringUtils.isNotBlank(authorInfo.getFirstName()) && StringUtils.isNotBlank(authorInfo.getLastName()) && StringUtils.isNotBlank(authorInfo.getEmail()) && StringUtils.isNotBlank(authorInfo.getPassword())){
+				
+				String avatarName = saveFileInPath(file, authorInfo);
+				Image avatar = new Image();
+				
+				if(avatarName != null && (authorInfo.getId() == null || (authorInfo.getId() != null && authorDao.getById(authorInfo.getId()).getAvatar() == null))){
+					avatar.setPath(avatarName);
+					imageDao.create(avatar);
+					authorInfo.setAvatar(avatar);
+				}
+					
 				author = authorInfo.update(author) ;
 				authorDao.saveOrUpdate(author);
 				redirectAttrs.addAttribute("id", author.getId()) ;
@@ -190,6 +207,28 @@ public class BlogController {
 		return "redirect:/blog/author?id={id}";
 	}
 	
+	private String saveFileInPath(MultipartFile file, AuthorInfo authorInfo) {
+		if (!file.isEmpty()) {
+			try {
+				if(!file.getContentType().contains("image/png"))
+					throw new Exception("avatar field must be an image/png");
+				System.out.println(file.getOriginalFilename());
+				String[] split = file.getOriginalFilename().split("\\."); 
+				String avatarName = authorInfo.getPseudo() +"."+ split[split.length - 1];				
+				
+				byte[] bytes = file.getBytes();
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File(AVATAR_PATH + avatarName)));
+				stream.write(bytes);
+				stream.close();
+				return avatarName ;
+			} catch (Exception e) {
+				logger.error("error when getting bytes {}", e.getMessage());
+			}
+		}		
+		return null ;
+	}
+
 	@RequestMapping(value="/blog/author/update", method=RequestMethod.GET)
 	public String updateAuthor(@RequestParam("id") Long id,
 			@RequestParam(value = "action", required = false) String action, RedirectAttributes redirectAttrs) throws Exception {

@@ -19,6 +19,7 @@
 				<tr>
 					<th>Number</th>
 					<th>Id</th>
+					<th>Avatar</th>
 					<th>Pseudo</th>
 					<th>First name</th>
 					<th>Last name</th>
@@ -31,6 +32,16 @@
 				<tr>
 					<td class="col-md-1"><%=counter%></td>  
 					<td class="col-md-1">${author.id}</td>
+					<td class="col-md-1">
+						<c:choose>
+							<c:when test="${not empty author.avatar.path}">
+								<img src="<c:url value="/resources/avatars/${author.avatar.path}"/>" class="img-responsive img-rounded media-object" width="40px">
+							</c:when>
+							<c:otherwise>
+								<img src="<c:url value="/resources/avatars/default-avatar.png"/>" class="img-responsive img-rounded media-object" width="40px">
+							</c:otherwise>
+						</c:choose>
+					</td>
 					<td class="col-md-1">${author.pseudo}</td>
 					<td class="col-md-1">${author.firstName}</td>
 					<td class="col-md-1">${author.lastName}</td>

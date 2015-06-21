@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>Upload a file please</title>
-	<link rel="stylesheet" href="<spring:theme code='style'/>" type="text/css"/>
+	<%-- <link rel="stylesheet" href="<spring:theme code='style'/>" type="text/css"/> --%>
     </head>
     <body>
         <h1>Please upload a file</h1>

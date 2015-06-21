@@ -1,8 +1,10 @@
 package com.nibrahimli.backoffice.blog.data;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nibrahimli.database.blog.entity.Author;
+import com.nibrahimli.database.blog.entity.Image;
 
 public class AuthorInfo {
 	
@@ -14,6 +16,7 @@ public class AuthorInfo {
 	private String confirmPassword;
 	private String email;
 	private String confirmEmail;
+	private Image avatar ; 
 	
 	/**
 	 * @return the id
@@ -110,6 +113,18 @@ public class AuthorInfo {
 	 */
 	public void setConfirmEmail(String confirmEmail) {
 		this.confirmEmail = confirmEmail;
+	}	
+	/**
+	 * @return the image
+	 */
+	public Image getAvatar() {
+		return avatar;
+	}
+	/**
+	 * @param image the image to set
+	 */
+	public void setAvatar(Image avatar) {
+		this.avatar = avatar;
 	}
 	
 	public AuthorInfo create(Author author) {
@@ -121,6 +136,7 @@ public class AuthorInfo {
 		this.setConfirmPassword(author.getConfirmPassword());
 		this.setEmail(author.getEmail());
 		this.setConfirmEmail(author.getConfirmEmail());
+		this.setAvatar(author.getAvatar());
 		return this;
 	}
 	
@@ -135,7 +151,8 @@ public class AuthorInfo {
 		author.setConfirmPassword(this.getConfirmPassword());
 		author.setEmail(this.getEmail());
 		author.setConfirmEmail(this.getConfirmEmail());
-		
+		if(this.getAvatar() != null)
+			author.setAvatar(this.getAvatar());
 		return author;
 	}
 }

@@ -39,7 +39,7 @@
   <!-- <logger name="org.hibernate" level="INFO"/>
   <logger name="com.mchange" level="INFO"/> -->
    
-  <!--  <logger name="org.springframework.web.servlet.mvc" level="TRACE" />
-   <logger name="org.hibernate" level="TRACE" /> -->
+  <logger name="org.springframework.web.servlet.mvc" level="TRACE" />
+   <!-- <logger name="org.hibernate" level="TRACE" /> -->
   
 </configuration>

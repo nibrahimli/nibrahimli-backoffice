@@ -179,11 +179,14 @@ public class BlogController {
 				
 				String avatarName = saveFileInPath(file, authorInfo);
 				Image avatar = new Image();
-				
-				if(avatarName != null && (authorInfo.getId() == null || (authorInfo.getId() != null && authorDao.getById(authorInfo.getId()).getAvatar() == null))){
+				Image img = authorDao.getById(authorInfo.getId()).getAvatar() ;
+				if(avatarName != null && (authorInfo.getId() == null || (authorInfo.getId() != null && img == null))){
 					avatar.setPath(avatarName);
 					imageDao.create(avatar);
 					authorInfo.setAvatar(avatar);
+				}
+				else if(img != null){
+					author.setAvatar(img);
 				}
 					
 				author = authorInfo.update(author) ;

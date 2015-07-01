@@ -211,6 +211,9 @@ public class BlogController {
 	}
 	
 	private String saveFileInPath(MultipartFile file, AuthorInfo authorInfo) {
+		
+		logger.info("file ", file);
+		logger.info("file upload path ", AVATAR_PATH);
 		if (!file.isEmpty()) {
 			try {
 				if(!file.getContentType().contains("image/png"))
@@ -256,42 +259,42 @@ public class BlogController {
 	}
 	
 	
-	@RequestMapping(value="/blog/fileUpload", method=RequestMethod.GET)
-	public ModelAndView handleFormUpload(ModelAndView mav){
-		logger.info("handleFormUpload");		
-		return mav;
-	}
-	
-	
-	@RequestMapping(value = "/blog/fileUpload", method = RequestMethod.POST)
-	public String handleFormUpload(@RequestParam("name") String name,
-	            @RequestParam("file") MultipartFile file) {
-	
-		
-			Resource rdc = new ClassPathResource("/spring");
-			try {
-				if(rdc.getFile() != null)
-					System.out.println(rdc.getFile().getAbsolutePath());
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				logger.error("rdc is empty folder - {}",e1);
-			}
-	        if (!file.isEmpty()) {
-	            try {
-	            	 byte[] bytes = file.getBytes();
-	                 BufferedOutputStream stream =
-	                         new BufferedOutputStream(new FileOutputStream(new File("src/main/webapp/resources/file/"+file.getOriginalFilename())));
-	                 stream.write(bytes);
-	                 stream.close();
-				} catch (Exception e) {
-					logger.error("error when getting bytes {}",e.getMessage());
-				}
-	            // store the bytes somewhere
-	            return "redirect:home";
-	        }
-	
-	        return "redirect:home";
-	    }
+//	@RequestMapping(value="/blog/fileUpload", method=RequestMethod.GET)
+//	public ModelAndView handleFormUpload(ModelAndView mav){
+//		logger.info("handleFormUpload");		
+//		return mav;
+//	}
+//	
+//	
+//	@RequestMapping(value = "/blog/fileUpload", method = RequestMethod.POST)
+//	public String handleFormUpload(@RequestParam("name") String name,
+//	            @RequestParam("file") MultipartFile file) {
+//	
+//		
+//			Resource rdc = new ClassPathResource("/spring");
+//			try {
+//				if(rdc.getFile() != null)
+//					System.out.println(rdc.getFile().getAbsolutePath());
+//			} catch (Exception e1) {
+//				// TODO Auto-generated catch block
+//				logger.error("rdc is empty folder - {}",e1);
+//			}
+//	        if (!file.isEmpty()) {
+//	            try {
+//	            	 byte[] bytes = file.getBytes();
+//	                 BufferedOutputStream stream =
+//	                         new BufferedOutputStream(new FileOutputStream(new File("src/main/webapp/resources/file/"+file.getOriginalFilename())));
+//	                 stream.write(bytes);
+//	                 stream.close();
+//				} catch (Exception e) {
+//					logger.error("error when getting bytes {}",e.getMessage());
+//				}
+//	            // store the bytes somewhere
+//	            return "redirect:home";
+//	        }
+//	
+//	        return "redirect:home";
+//	    }
 	
 	
     @RequestMapping(value = "/error")

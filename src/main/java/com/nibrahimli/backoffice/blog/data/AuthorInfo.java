@@ -1,7 +1,6 @@
 package com.nibrahimli.backoffice.blog.data;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.nibrahimli.database.blog.entity.Author;
 import com.nibrahimli.database.blog.entity.Image;

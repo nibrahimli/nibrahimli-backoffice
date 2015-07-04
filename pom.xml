@@ -110,6 +110,11 @@
 		<version>${apache.commons-collections4.version}</version><!--$NO-MVN-MAN-VER$-->
 	</dependency>
 	
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+		<artifactId>commons-fileupload</artifactId>
+	</dependency>
+	
 	</dependencies>
   
   

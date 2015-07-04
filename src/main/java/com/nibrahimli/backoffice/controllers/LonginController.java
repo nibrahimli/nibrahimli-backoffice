@@ -9,12 +9,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class LonginController {
 
 	@RequestMapping(value="/")
-	public String login(ModelAndView mav) {
+	public String home(ModelAndView mav) {
 		return "home";
 	}
 	
 	@RequestMapping(value="/login")
-	public String login1(ModelAndView mav) {
+	public String login(ModelAndView mav) {
 		return "login";
 	}
 	

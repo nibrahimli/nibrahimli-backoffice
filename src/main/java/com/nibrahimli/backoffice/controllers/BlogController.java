@@ -176,17 +176,20 @@ public class BlogController {
 		{
 			Author author = new Author() ;
 			if(StringUtils.isNotBlank(authorInfo.getFirstName()) && StringUtils.isNotBlank(authorInfo.getLastName()) && StringUtils.isNotBlank(authorInfo.getEmail()) && StringUtils.isNotBlank(authorInfo.getPassword())){
-				
-				String avatarName = saveFileInPath(file, authorInfo);
-				Image avatar = new Image();
-				Image img = authorDao.getById(authorInfo.getId()).getAvatar() ;
-				if(avatarName != null && (authorInfo.getId() == null || (authorInfo.getId() != null && img == null))){
+				if(!file.isEmpty()){
+					int size = getNumberOfImage(authorInfo) ;
+					size++;
+					String avatarName = saveFileInPath(file, authorInfo, size);
+					Image avatar = new Image();
 					avatar.setPath(avatarName);
+					avatar.setAlt(avatarName);
 					imageDao.create(avatar);
-					authorInfo.setAvatar(avatar);
+					authorInfo.setAvatar(avatar);					
 				}
-				else if(img != null){
-					author.setAvatar(img);
+				else if(authorInfo.getId() != null){
+					Image avatar = authorDao.getById(authorInfo.getId()).getAvatar();
+					if(avatar != null)
+						authorInfo.setAvatar(avatar);
 				}
 					
 				author = authorInfo.update(author) ;
@@ -210,28 +213,42 @@ public class BlogController {
 		return "redirect:/blog/author?id={id}";
 	}
 	
-	private String saveFileInPath(MultipartFile file, AuthorInfo authorInfo) {
-		
-		logger.info("file ", file);
-		logger.info("file upload path ", AVATAR_PATH);
-		if (!file.isEmpty()) {
+	private int getNumberOfImage(AuthorInfo authorInfo) {
+		try{
+		if(authorInfo.getId() != null) {
+			Image avatar = authorDao.getById(authorInfo.getId()).getAvatar();
+			if(avatar != null){
+				String[] split = avatar.getPath().split("-");
+				return Integer.parseInt(split[split.length - 1].substring(0, split[split.length - 1].indexOf("."))); 
+			}
+		}
+		}catch(Exception e){
+			logger.info("image number not found {}", e);			
+		}		
+		return 0;
+	}
+
+	private String saveFileInPath(MultipartFile multipartFile, AuthorInfo authorInfo, int size) {
+
 			try {
-				if(!file.getContentType().contains("image/png"))
+				if(!multipartFile.getContentType().contains("image/png"))
 					throw new Exception("avatar field must be an image/png");
-				System.out.println(file.getOriginalFilename());
-				String[] split = file.getOriginalFilename().split("\\."); 
-				String avatarName = authorInfo.getPseudo() +"."+ split[split.length - 1];				
+				String[] split = multipartFile.getOriginalFilename().split("\\."); 
+				String avatarName = authorInfo.getPseudo()+"-"+size+"."+ split[split.length - 1];				
 				
-				byte[] bytes = file.getBytes();
+				byte[] bytes = multipartFile.getBytes();
+				File file = new File(AVATAR_PATH + authorInfo.getPseudo()+"/"+avatarName);
+				file.getParentFile().mkdirs();
+				
 				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(AVATAR_PATH + avatarName)));
+						new FileOutputStream(file));
+				
 				stream.write(bytes);
 				stream.close();
 				return avatarName ;
 			} catch (Exception e) {
 				logger.error("error when getting bytes {}", e.getMessage());
-			}
-		}		
+			}			
 		return null ;
 	}
 

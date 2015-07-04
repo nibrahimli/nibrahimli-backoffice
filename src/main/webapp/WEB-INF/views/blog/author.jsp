@@ -22,7 +22,7 @@
 				    <div class="col-sm-4">				    
 				    <c:choose>
 				    	<c:when test="${not empty authorInfo.avatar}">				    		
-					    	<img src="<c:url value="/resources/avatars/${authorInfo.avatar.path}"/>" class="img-responsive img-rounded media-object" width="30px">
+					    	<img src="<c:url value="/resources/avatars/${authorInfo.pseudo}/${authorInfo.avatar.path}"/>" class="img-responsive img-rounded media-object" width="30px">
 				    	</c:when>
 				    	<c:otherwise>
 				    		<img src="<c:url value="/resources/avatars/default-avatar.png"/>" class="img-responsive img-rounded media-object" width="40px">

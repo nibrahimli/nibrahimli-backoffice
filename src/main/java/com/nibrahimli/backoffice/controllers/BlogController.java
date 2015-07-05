@@ -135,7 +135,7 @@ public class BlogController {
 			if(action.equals("delete")){
 				articleDao.delete(article);
 				logger.info( "Article[id=" + article.getId() + "] deleted !");
-				redirectAttrs.addFlashAttribute("infoMessage", "Article[id=" + article.getId() + "] deleted !") ;
+				redirectAttrs.addFlashAttribute("infoMessage", "Article[id=" + article.getId() + "] deleted !") ;				
 			}
 			return "redirect:/blog/articles";
 		}

@@ -10,8 +10,8 @@
     		
 	<context:property-placeholder location="classpath:database.properties" />
 	
-	<import resource="classpath:spring/nibrahimli-database-pool-jdbc-backoffice-context.xml" />
-	<import resource="classpath:spring/nibrahimli-database-pool-jdbc-context.xml" />
+	<import resource="classpath:spring/nibrahimli-database-basic-jdbc-backoffice-context.xml" />
+	<import resource="classpath:spring/nibrahimli-database-basic-jdbc-context.xml" />
 	
 
 </beans>

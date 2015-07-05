@@ -4,6 +4,7 @@ package com.nibrahimli.backoffice.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class BlogController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(BlogController.class);
 
-	private static final String AVATAR_PATH = "src/main/webapp/resources/avatars/";
+	private static final String AVATAR_PATH = "/resources/avatars/";
 	
 	@Autowired
 	private AuthorDao authorDao;
@@ -237,8 +238,12 @@ public class BlogController {
 				String avatarName = authorInfo.getPseudo()+"-"+size+"."+ split[split.length - 1];				
 				
 				byte[] bytes = multipartFile.getBytes();
+				
 				File file = new File(AVATAR_PATH + authorInfo.getPseudo()+"/"+avatarName);
 				file.getParentFile().mkdirs();
+				
+				
+				logger.info("file path {}", file.getAbsolutePath());
 				
 				BufferedOutputStream stream = new BufferedOutputStream(
 						new FileOutputStream(file));

@@ -105,7 +105,7 @@ public class BlogController {
 				article = articleInfo.update(article, authorList) ;
 				articleDao.saveOrUpdate(article);
 				redirectAttrs.addAttribute("id", article.getId()) ;
-				redirectAttrs.addFlashAttribute("infoMessage", "Article " + article.getId() + " saved !") ;
+				redirectAttrs.addFlashAttribute("infoMessage", "Article[id=" + article.getId() + "] saved !") ;
 			}
 			else 
 			{
@@ -133,8 +133,8 @@ public class BlogController {
 			Article article = articleDao.getById(id);
 			if(action.equals("delete")){
 				articleDao.delete(article);
-				logger.info( "Article " + article.getId() + " deleted !");
-				redirectAttrs.addFlashAttribute("infoMessage", "Article " + article.getId() + " deleted !") ;
+				logger.info( "Article[id=" + article.getId() + "] deleted !");
+				redirectAttrs.addFlashAttribute("infoMessage", "Author[id=" + article.getId() + "] deleted !") ;
 			}
 			return "redirect:/blog/articles";
 		}

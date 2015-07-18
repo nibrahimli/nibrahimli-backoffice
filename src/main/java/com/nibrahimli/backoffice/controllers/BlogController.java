@@ -4,7 +4,7 @@ package com.nibrahimli.backoffice.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +37,7 @@ public class BlogController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(BlogController.class);
 
-	private static final String AVATAR_PATH = "/resources/avatars/";
+	private static final String AVATAR_PATH = "/home/"+System.getProperty("user.name")+"/avatars/";
 	
 	@Autowired
 	private AuthorDao authorDao;
@@ -48,15 +46,15 @@ public class BlogController {
 	private ArticleDao articleDao;
 	
 	@Autowired
-	private ImageDao imageDao;
-	
+	private ImageDao imageDao;	
 	
 	
 	@RequestMapping(value="/blog/articles", method=RequestMethod.GET)
-	public ModelAndView articles(ModelAndView mav){
+	public ModelAndView articles(ModelAndView mav) throws IOException{
 		
 		List<Article> articleList = articleDao.getAll();
 		mav.addObject(sortByArticle(articleList));
+		
 		return mav;
 	}
 	
@@ -239,7 +237,9 @@ public class BlogController {
 				
 				byte[] bytes = multipartFile.getBytes();
 				
-				File file = new File(AVATAR_PATH + authorInfo.getPseudo()+"/"+avatarName);
+				
+				
+				File file = new File(AVATAR_PATH +"/"+ authorInfo.getPseudo()+"/"+avatarName);
 				file.getParentFile().mkdirs();
 				
 				

@@ -16,6 +16,7 @@
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
     <mvc:resources mapping="/avatars/**" location="file:/home/ec2-user/avatars/" />
+    <mvc:resources mapping="/avatars/**" location="file:/home/nibrahim/avatars/" />
     
     
    	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

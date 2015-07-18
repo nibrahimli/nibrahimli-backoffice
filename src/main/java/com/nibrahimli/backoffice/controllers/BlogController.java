@@ -37,7 +37,7 @@ public class BlogController {
 	
 	private final static Logger logger = LoggerFactory.getLogger(BlogController.class);
 
-	private static final String AVATAR_PATH = "/home/ec2-user/avatars/";
+	private static final String AVATAR_PATH = "/home/"+System.getProperty("user.name")+"/avatars/";
 	
 	@Autowired
 	private AuthorDao authorDao;

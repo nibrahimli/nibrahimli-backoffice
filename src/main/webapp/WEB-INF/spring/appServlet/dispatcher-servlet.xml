@@ -15,7 +15,6 @@
     <import resource="controllers.xml" />
     
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:resources mapping="/avatars/**" location="file:/home/nibrahim/avatars/" />
     <mvc:resources mapping="/avatars/**" location="file:/home/ec2-user/avatars/" />
     
     

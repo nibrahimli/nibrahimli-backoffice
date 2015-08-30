@@ -8,7 +8,7 @@
 
 <div class="col-md-10"">
 	<fieldset>
-	<legend>List of author demo for sinan</legend>
+	<legend>List of authors</legend>
 		
 		<c:import url="/WEB-INF/views/tags/status.jsp" />
 		

@@ -11,7 +11,7 @@
 	<context:property-placeholder location="classpath:database.properties" />
 	
 	<import resource="classpath:spring/nibrahimli-database-basic-jdbc-backoffice-context.xml" />
-	<import resource="classpath:spring/nibrahimli-database-basic-jdbc-context.xml" />
+	<import resource="classpath:spring/nibrahimli-database-basic-jdbc-myBlog-context.xml" />
 	
 
 </beans>

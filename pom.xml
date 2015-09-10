@@ -18,7 +18,7 @@
   
   <properties>
   	 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	 <nibrahimli-database.version>1.0-SNAPSHOT</nibrahimli-database.version>
+  	 <nibrahimli-database.version>2.0-SNAPSHOT</nibrahimli-database.version>
   	 <sitemesh.version>2.4.2</sitemesh.version>
   	 <apache.commons-lang3.version>3.4</apache.commons-lang3.version>
   	<apache.commons-collections4.version>4.0</apache.commons-collections4.version>

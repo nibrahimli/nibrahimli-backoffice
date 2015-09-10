@@ -26,10 +26,10 @@ import com.nibrahimli.backoffice.blog.data.ArticleInfo;
 import com.nibrahimli.backoffice.blog.data.AuthorInfo;
 import com.nibrahimli.database.blog.dao.ArticleDao;
 import com.nibrahimli.database.blog.dao.AuthorDao;
-import com.nibrahimli.database.blog.dao.ImageDao;
 import com.nibrahimli.database.blog.entity.Article;
 import com.nibrahimli.database.blog.entity.Author;
-import com.nibrahimli.database.blog.entity.Image;
+import com.nibrahimli.database.generic.dao.ImageDao;
+import com.nibrahimli.database.generic.entity.Image;
 
 
 @Controller

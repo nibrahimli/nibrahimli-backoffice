@@ -3,7 +3,7 @@ package com.nibrahimli.backoffice.blog.data;
 import org.apache.commons.lang3.StringUtils;
 
 import com.nibrahimli.database.blog.entity.Author;
-import com.nibrahimli.database.blog.entity.Image;
+import com.nibrahimli.database.generic.entity.Image;
 
 public class AuthorInfo {
 	
